@@ -18,7 +18,7 @@ const Search = require('./search/search');
         let list = await search.search('捉妖记2')
         console.log('搜索结果->', list)
     } finally {
-        await driver && driver.quit();
+        // await driver && driver.quit();
     }
 /* 
     let menuHtml = await driver.findElement(By.id('i_div0_0')).getAttribute("innerHTML")
