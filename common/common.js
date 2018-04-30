@@ -1,4 +1,4 @@
-const { By, Key } = require('selenium-webdriver');
+const { By, Key, until } = require('selenium-webdriver');
 /**
  * 切换frame
  */
@@ -15,6 +15,16 @@ const switchFrame = async (driver) => {
 const sendSearch = async (driver, keyWords) => {
     return await driver.findElement(By.id('wd')).sendKeys(keyWords, Key.RETURN)
 }
+/**
+ * 发送搜索事件
+ */
+const sendSearchByMobile = async (driver, keyWords) => {
+    await driver.findElement(By.className('aHeaderSearch')).click()
+    await driver.wait(until.elementIsVisible(driver.findElement(By.className('searchPop'))), 3000)
+    await driver.findElement(By.id('wd')).sendKeys(keyWords)
+    return await driver.findElement(By.className('cancelInput2')).click()
+}
 exports.HOST = 'http://aaqqy.com'
 exports.switchFrame = switchFrame
 exports.sendSearch = sendSearch
+exports.sendSearchByMobile = sendSearchByMobile
