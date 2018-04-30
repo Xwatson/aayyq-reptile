@@ -24,7 +24,7 @@ const sendSearchByMobile = async (driver, keyWords) => {
     await driver.findElement(By.id('wd')).sendKeys(keyWords)
     return await driver.findElement(By.className('cancelInput2')).click()
 }
-exports.HOST = 'http://aaqqy.com'
+exports.HOST = 'http://c.aaccy.com'
 exports.switchFrame = switchFrame
 exports.sendSearch = sendSearch
 exports.sendSearchByMobile = sendSearchByMobile
