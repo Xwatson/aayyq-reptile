@@ -3,6 +3,9 @@ const moment = require('moment');
 
 const getDetail = async(driver, content, title) => {
     let detail = {}
+    // 隐藏广告
+    const ad = await content.findElement(By.tagName('a'))
+    await driver.executeScript('arguments[0].setAttribute("style", "display:none")', ad)
     await driver.wait(until.titleMatches(new RegExp(title), 3000))
     const movieBody = await content.findElement(By.id('resize_vod'))
     const infoBody = await movieBody.findElement(By.className('vod-n-l'))
@@ -30,7 +33,7 @@ const getDetail = async(driver, content, title) => {
     await driver.switchTo().frame(1)
     await driver.sleep(1000)
     if (iframeSrc.indexOf('mgtv') > -1) {
-        await driver.wait(until.elementLocated(By.id('J_miPlayerWrapper')), 1000*60)
+        await driver.wait(until.elementLocated(By.id('J_miPlayerWrapper')), 5000)
         detail.playerUrl = await driver.findElement(By.id('J_miPlayerWrapper')).findElement(By.tagName('video')).getAttribute('src')
     }/*  else {
         await driver.wait(async() => {
