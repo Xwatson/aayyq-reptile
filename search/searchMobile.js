@@ -20,9 +20,11 @@ class search {
     }
     async goToDetail(contents) {
         let list = await contents.findElements(By.tagName('li'))
+        let titleText = ''
         for(let item in list) {
             let playTxt = await list[item].findElement(By.className('list_info'))
             let title = await playTxt.findElement(By.tagName('h2'))
+            titleText = (await title.getText()).replace(/\n|/g, '')
             let text = await title.getText()
             if (text.indexOf(this.keyWords) > -1) {
                 await title.findElement(By.tagName('a')).click()
@@ -32,7 +34,7 @@ class search {
         await this.driver.sleep(2000)
         // await switchFrame(this.driver)
         const detailContent = await this.driver.findElement(By.tagName('body'))
-        return await getDetail(this.driver, detailContent)
+        return await getDetail(this.driver, detailContent, titleText)
     }
 }
 
